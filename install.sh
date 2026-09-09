@@ -1,6 +1,6 @@
 #!/bin/bash
 # byper installer — sets up the byper CLI + menu bar app on Apple Silicon Macs.
-# Usage: curl -fsSL https://byper.dev/install | bash
+# Usage: curl -fsSL https://byper.org/install | bash
 #
 # What it does:
 #   1. Checks the platform (Apple Silicon, macOS 11+, not Linux/Intel).
