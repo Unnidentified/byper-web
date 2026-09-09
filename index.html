@@ -11,12 +11,7 @@
     <title>byper - macOS charge bypass & battery toolkit (CLI + SwiftUI)</title>
     <script>
       (function() {
-        try {
-          const saved = localStorage.getItem('byper-theme');
-          if (saved === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-          }
-        } catch (e) {}
+        document.documentElement.setAttribute('data-theme', 'dark');
       })();
 
       window.toggleTheme = function() {
@@ -1364,7 +1359,7 @@
       <div class="neo-pixel-grid"></div>
     </div>
 
-    <button class="theme-text-btn" id="theme-toggle" onclick="window.toggleTheme()" title="Current theme: light (click for dark)">-[light]</button>
+    <button class="theme-text-btn" id="theme-toggle" style="display:none" onclick="window.toggleTheme()" title="Current theme: light (click for dark)">-[light]</button>
 
     <!-- Main Two-Zone Fluid Layout -->
     <div class="app-layout">
@@ -1415,10 +1410,10 @@
         </div>
 
         <div class="downloads">
-          <a class="download-button" href="https://github.com/Unnidentified/byper/releases/download/v2.2.5/byper-installer-2.2.5.pkg">
+          <a class="download-button" href="https://github.com/Unnidentified/byper/releases/latest/download/byper-installer.pkg">
             Download PKG (arm64)
           </a>
-          <a class="download-button" href="https://github.com/Unnidentified/byper/releases/download/v2.2.5/byper-installer-2.2.5.dmg">
+          <a class="download-button" href="https://github.com/Unnidentified/byper/releases/latest/download/byper-installer.dmg">
             Download DMG
           </a>
           <a class="download-button" href="https://github.com/Unnidentified/byper">
