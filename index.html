@@ -9,6 +9,8 @@
       content="macOS charge bypass & battery toolkit: a high-performance CLI + native SwiftUI menu bar app for Apple Silicon MacBooks. Run directly on AC line power with 0% battery wear and zero background daemon overhead."
     />
     <title>byper - macOS charge bypass & battery toolkit (CLI + SwiftUI)</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
+    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
     <script>
       (function() {
         document.documentElement.setAttribute('data-theme', 'dark');
@@ -516,8 +518,7 @@
         main > .hero,
         main > article,
         main > footer {
-          max-width: min(860px, calc(100% - 8px));
-          transform: translateX(4px);
+          max-width: min(860px, calc(100% - 3rem));
         }
       }
 
@@ -594,6 +595,7 @@
         font-size: 15px;
         -webkit-font-smoothing: antialiased;
         overflow-x: hidden;
+        filter: sepia(0.14);
       }
 
       /* Live Animated Wave Mesh Canvas (Background) */
@@ -1443,7 +1445,7 @@
       <article id="controls">
         <h2>What's included</h2>
         <p>
-          We built Byper as both a command-line tool and a native menu bar app. It keeps things simple with four main controls:
+          I built Byper as both a command-line tool and a native menu bar app. It keeps things simple with four main controls:
         </p>
 
         <div class="cards-grid">
@@ -1548,7 +1550,7 @@
       <article id="how-it-is-built">
         <h2>How it's built</h2>
         <p>
-          We wanted Byper to feel like a native macOS utility that stays out of your way and uses zero resources when you are not touching it. Here is how we put it together:
+          I wanted Byper to feel like a native macOS utility that stays out of your way and uses zero resources when you are not touching it. Here is how I put it together:
         </p>
 
         <h3>SUID execution means no background daemons in memory.</h3>
