@@ -12,18 +12,11 @@
     <script>
       (function() {
         try {
-          // Dark is the default theme; the light palette only applies if the
-          // visitor explicitly saved it (the toggle is hidden but the code
-          // remains, so re-enabling it restores light mode support).
           const saved = localStorage.getItem('byper-theme');
-          if (saved === 'light') {
-            document.documentElement.removeAttribute('data-theme');
-          } else {
+          if (saved === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
           }
-        } catch (e) {
-          document.documentElement.setAttribute('data-theme', 'dark');
-        }
+        } catch (e) {}
       })();
 
       window.toggleTheme = function() {
@@ -1356,7 +1349,7 @@
     <!-- Sticky Install Bar on Scroll -->
     <div class="install-bar" id="install-bar">
       <div class="install-command">
-        <pre><code>curl -fsSL https://byper.dev/install | bash</code></pre>
+        <pre><code>curl -fsSL https://byper.org/install | bash</code></pre>
         <button class="copy-button" onclick="copyInstall(this)">copy</button>
       </div>
     </div>
@@ -1371,7 +1364,7 @@
       <div class="neo-pixel-grid"></div>
     </div>
 
-    <button class="theme-text-btn" id="theme-toggle" onclick="window.toggleTheme()" title="Current theme: light (click for dark)" style="display:none">-[light]</button>
+    <button class="theme-text-btn" id="theme-toggle" onclick="window.toggleTheme()" title="Current theme: light (click for dark)">-[light]</button>
 
     <!-- Main Two-Zone Fluid Layout -->
     <div class="app-layout">
@@ -1417,15 +1410,15 @@
         </div>
 
         <div class="install-command">
-          <pre><code>curl -fsSL https://byper.dev/install | bash</code></pre>
+          <pre><code>curl -fsSL https://byper.org/install | bash</code></pre>
           <button class="copy-button" onclick="copyInstall(this)">copy</button>
         </div>
 
         <div class="downloads">
-          <a class="download-button" href="https://github.com/Unnidentified/byper/releases/latest/download/byper-installer.pkg">
+          <a class="download-button" href="https://github.com/Unnidentified/byper/releases/download/v2.2.5/byper-installer-2.2.5.pkg">
             Download PKG (arm64)
           </a>
-          <a class="download-button" href="https://github.com/Unnidentified/byper/releases/latest/download/byper-installer.dmg">
+          <a class="download-button" href="https://github.com/Unnidentified/byper/releases/download/v2.2.5/byper-installer-2.2.5.dmg">
             Download DMG
           </a>
           <a class="download-button" href="https://github.com/Unnidentified/byper">
@@ -2125,7 +2118,7 @@
 
       function copyInstall(btnOrSource) {
         const btn = (btnOrSource && btnOrSource.nodeType) ? btnOrSource : (window.event ? window.event.currentTarget : document.querySelector('.install-command .copy-button'));
-        const cmd = "curl -fsSL https://byper.dev/install | bash";
+        const cmd = "curl -fsSL https://byper.org/install | bash";
         triggerCopyTick(btn, cmd);
       }
 
