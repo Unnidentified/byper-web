@@ -34,15 +34,16 @@ fi
 
 echo "==> byper: downloading the latest installer (Apple Silicon)…"
 
-TMP_DIR=$(mktemp -d)
-trap 'rm -rf "$TMP_DIR"' EXIT
-TMP="$TMP_DIR/byper-installer.pkg"
+# Stage at a fixed path that outlives this script: `open` hands the file to
+# Installer asynchronously, so a mktemp cleaned up on EXIT would vanish
+# before Installer reads it (which makes Installer fall back to a file-picker).
+DEST="${TMPDIR:-/tmp}/byper-installer.pkg"
 
 # The bare .pkg download loses the Finder custom icon (HTTP strips resource
 # forks) but the installer itself is byte-identical. Prefer the DMG when a
 # desktop session is available so the badge survives; fall back to the pkg.
 PKG_URL="${DL}/byper-installer.pkg"
-if curl -fsSL -o "$TMP" "$PKG_URL"; then
+if curl -fsSL -o "$DEST" "$PKG_URL"; then
     :
 else
     echo "byper: download failed (no network, or the release moved)." >&2
@@ -50,13 +51,13 @@ else
 fi
 
 # Sanity: a valid pkg begins with the xar magic.
-if [[ "$(head -c 4 "$TMP")" != "xar!" ]]; then
+if [[ "$(head -c 4 "$DEST")" != "xar!" ]]; then
     echo "byper: downloaded file is not a valid installer package." >&2
     exit 1
 fi
 
 echo "==> byper: opening the installer (the macOS installer will ask for admin)."
-open "$TMP"
+open "$DEST"
 
 cat <<'EOF'
 
