@@ -34,8 +34,9 @@ fi
 
 echo "==> byper: downloading the latest installer (Apple Silicon)…"
 
-TMP=$(mktemp -t byper-installer.XXXXXX.pkg)
-trap 'rm -f "$TMP"' EXIT
+TMP_DIR=$(mktemp -d)
+trap 'rm -rf "$TMP_DIR"' EXIT
+TMP="$TMP_DIR/byper-installer.pkg"
 
 # The bare .pkg download loses the Finder custom icon (HTTP strips resource
 # forks) but the installer itself is byte-identical. Prefer the DMG when a
