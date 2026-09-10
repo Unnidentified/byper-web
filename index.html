@@ -9,12 +9,21 @@
       content="macOS charge bypass & battery toolkit: a high-performance CLI + native SwiftUI menu bar app for Apple Silicon MacBooks. Run directly on AC line power with 0% battery wear and zero background daemon overhead."
     />
     <title>byper - macOS charge bypass & battery toolkit (CLI + SwiftUI)</title>
-    <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
     <script>
       (function() {
-        document.documentElement.setAttribute('data-theme', 'dark');
+        try {
+          // Dark is the default theme; the light palette only applies if the
+          // visitor explicitly saved it (the toggle is hidden but the code
+          // remains, so re-enabling it restores light mode support).
+          const saved = localStorage.getItem('byper-theme');
+          if (saved === 'light') {
+            document.documentElement.removeAttribute('data-theme');
+          } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+          }
+        } catch (e) {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
       })();
 
       window.toggleTheme = function() {
@@ -267,7 +276,6 @@
          TWO-ZONE FLUID GRID LAYOUT (With Giant Titles Scrolling Vertically)
          ========================================================================== */
       .app-layout {
-        filter: sepia(0.14);
         display: grid;
         grid-template-columns: clamp(260px, 25vw, 380px) 2px 1fr;
         min-height: 100vh;
@@ -520,7 +528,8 @@
         main > .hero,
         main > article,
         main > footer {
-          max-width: min(860px, calc(100% - 3rem));
+          max-width: min(860px, calc(100% - 8px));
+          transform: translateX(4px);
         }
       }
 
@@ -597,6 +606,7 @@
         font-size: 15px;
         -webkit-font-smoothing: antialiased;
         overflow-x: hidden;
+        filter: sepia(0.14);
       }
 
       /* Live Animated Wave Mesh Canvas (Background) */
@@ -870,6 +880,11 @@
         visibility: visible;
         pointer-events: auto;
         transform: translateY(0);
+      }
+      @media (min-width: 1060px) {
+        .install-bar.visible {
+          transform: translateY(0) translateX(4px);
+        }
       }
       /* Sticky Install Bar: aligned exactly over the main content column */
       @media (min-width: 1060px) {
@@ -1357,7 +1372,7 @@
       <div class="neo-pixel-grid"></div>
     </div>
 
-    <button class="theme-text-btn" id="theme-toggle" style="display:none" onclick="window.toggleTheme()" title="Current theme: light (click for dark)">-[light]</button>
+    <button class="theme-text-btn" id="theme-toggle" onclick="window.toggleTheme()" title="Current theme: light (click for dark)" style="display:none">-[light]</button>
 
     <!-- Main Two-Zone Fluid Layout -->
     <div class="app-layout">
@@ -1441,7 +1456,7 @@
       <article id="controls">
         <h2>What's included</h2>
         <p>
-          I built Byper as both a command-line tool and a native menu bar app. It keeps things simple with four main controls:
+          We built Byper as both a command-line tool and a native menu bar app. It keeps things simple with four main controls:
         </p>
 
         <div class="cards-grid">
@@ -1546,7 +1561,7 @@
       <article id="how-it-is-built">
         <h2>How it's built</h2>
         <p>
-          I wanted Byper to feel like a native macOS utility that stays out of your way and uses zero resources when you are not touching it. Here is how I put it together:
+          We wanted Byper to feel like a native macOS utility that stays out of your way and uses zero resources when you are not touching it. Here is how we put it together:
         </p>
 
         <h3>SUID execution means no background daemons in memory.</h3>
