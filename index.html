@@ -9,9 +9,6 @@
       content="macOS charge bypass & battery toolkit: a high-performance CLI + native SwiftUI menu bar app for Apple Silicon MacBooks. Run directly on AC line power with 0% battery wear and zero background daemon overhead."
     />
     <title>byper - macOS charge bypass & battery toolkit (CLI + SwiftUI)</title>
-    <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png" />
-    <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
-    <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
     <script>
       (function() {
         try {
@@ -609,7 +606,6 @@
         font-size: 15px;
         -webkit-font-smoothing: antialiased;
         overflow-x: hidden;
-        filter: sepia(0.14);
       }
 
       /* Live Animated Wave Mesh Canvas (Background) */
@@ -1715,7 +1711,10 @@
       <article id="requirements">
         <h2>Requirements</h2>
         <p>
-          SIP configuration. Byper needs one SIP adjustment: it disables only the SIP debug-mode restriction, not SIP itself. Your system protection, malware defenses, and everything else SIP does stay fully enabled. Run once in Recovery Terminal:
+          We believe in being upfront about how the tool works and what the system requirements are:
+        </p>
+        <p>
+          SIP configuration. Run once in Recovery Terminal:
         </p>
         <div class="install-command" style="margin: 0.5rem 0 1.25rem;">
           <pre><code>csrutil enable --without debug</code></pre>
