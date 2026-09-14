@@ -42,7 +42,11 @@ DEST="${TMPDIR:-/tmp}/byper-installer.pkg"
 # The bare .pkg download loses the Finder custom icon (HTTP strips resource
 # forks) but the installer itself is byte-identical. Prefer the DMG when a
 # desktop session is available so the badge survives; fall back to the pkg.
-PKG_URL="${DL}/byper-installer.pkg"
+PKG_URL=$(curl -fsSL "https://api.github.com/repos/${REPO}/releases/latest" 2>/dev/null | \
+    grep -o 'https://[^"]*/byper-installer[^"]*\.pkg' | head -n 1 || true)
+if [[ -z "${PKG_URL:-}" ]]; then
+    PKG_URL="${DL}/byper-installer.pkg"
+fi
 if curl -fsSL -o "$DEST" "$PKG_URL"; then
     :
 else
