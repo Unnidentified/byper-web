@@ -39,10 +39,19 @@ echo "==> byper: downloading the latest installer (Apple Silicon)…"
 # before Installer reads it (which makes Installer fall back to a file-picker).
 DEST="${TMPDIR:-/tmp}/byper-installer.pkg"
 
-# The bare .pkg download loses the Finder custom icon (HTTP strips resource
-# forks) but the installer itself is byte-identical. Prefer the DMG when a
-# desktop session is available so the badge survives; fall back to the pkg.
-PKG_URL="${DL}/byper-installer.pkg"
+# Resolve the current release tag from the `releases/latest` redirect. This is a
+# plain HEAD to github.com, so it never touches the rate-limited REST API and can
+# never fall back to a stale unversioned asset name. Release assets are versioned:
+# byper-installer-<ver>.pkg / .dmg.
+TAG=$(curl -fsSI "https://github.com/${REPO}/releases/latest" 2>/dev/null \
+    | tr -d '\r' | awk -F'/tag/' '/^[Ll]ocation:/{print $2}' || true)
+TAG="${TAG##*/}"
+if [[ -z "${TAG:-}" ]]; then
+    echo "byper: could not resolve the latest release (no network, or the release moved)." >&2
+    exit 1
+fi
+VER="${TAG#v}"
+PKG_URL="https://github.com/${REPO}/releases/download/${TAG}/byper-installer-${VER}.pkg"
 if curl -fsSL -o "$DEST" "$PKG_URL"; then
     :
 else

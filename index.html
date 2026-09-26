@@ -1425,10 +1425,10 @@
         </div>
 
         <div class="downloads">
-          <a class="download-button" href="https://github.com/Unnidentified/byper/releases/latest/download/byper-installer.pkg">
+          <a class="download-button" id="download-pkg" href="https://github.com/Unnidentified/byper/releases/latest">
             Download PKG (arm64)
           </a>
-          <a class="download-button" href="https://github.com/Unnidentified/byper/releases/latest/download/byper-installer.dmg">
+          <a class="download-button" id="download-dmg" href="https://github.com/Unnidentified/byper/releases/latest">
             Download DMG
           </a>
           <a class="download-button" href="https://github.com/Unnidentified/byper">
@@ -2134,6 +2134,29 @@
         const cmd = "csrutil enable --without debug";
         triggerCopyTick(btn, cmd);
       }
+
+      // Release assets are versioned (byper-installer-<ver>.pkg/.dmg), so the
+      // static `latest/download/byper-installer.pkg` path 404s. Resolve the real
+      // asset URLs from the releases API; the anchors already fall back to the
+      // releases page, so a failed or rate-limited call degrades gracefully.
+      (function resolveDownloadLinks() {
+        const pkg = document.getElementById('download-pkg');
+        const dmg = document.getElementById('download-dmg');
+        if (!pkg && !dmg) return;
+        fetch('https://api.github.com/repos/Unnidentified/byper/releases/latest')
+          .then(r => (r.ok ? r.json() : Promise.reject()))
+          .then(d => {
+            const urlFor = ext => {
+              const asset = (d.assets || []).find(a => a.name.endsWith(ext));
+              return asset && asset.browser_download_url;
+            };
+            const pkgUrl = urlFor('.pkg');
+            const dmgUrl = urlFor('.dmg');
+            if (pkg && pkgUrl) pkg.href = pkgUrl;
+            if (dmg && dmgUrl) dmg.href = dmgUrl;
+          })
+          .catch(() => {});
+      })();
 
       // Sticky install bar: strictly when passing over the install command in the body
       const heroInstall = document.querySelector('.hero .install-command');
