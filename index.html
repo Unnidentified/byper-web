@@ -12,6 +12,8 @@
     <link rel="icon" type="image/png" sizes="64x64" href="icons/favicon-64.png" />
     <link rel="icon" type="image/png" sizes="32x32" href="icons/favicon-32.png" />
     <link rel="apple-touch-icon" sizes="180x180" href="icons/apple-touch-icon.png" />
+    <link rel="preload" href="assets/fonts/jetbrains-mono-var.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/fonts/inter-900-latin.woff2" as="font" type="font/woff2" crossorigin />
     <script>
       (function() {
         try {
@@ -55,6 +57,21 @@
       });
     </script>
     <style>
+      @font-face {
+        font-family: "JetBrains Mono";
+        src: url("assets/fonts/jetbrains-mono-var.woff2") format("woff2");
+        font-weight: 100 800;
+        font-style: normal;
+        font-display: swap;
+      }
+      @font-face {
+        font-family: "Inter";
+        src: url("assets/fonts/inter-900-latin.woff2") format("woff2");
+        font-weight: 900;
+        font-style: normal;
+        font-display: swap;
+      }
+
       :root {
         /* Creamy Faded Warm White Palette */
         --bg: #f7f4ed;            /* Faded warm white, creamy paper tone */
@@ -330,7 +347,7 @@
       }
       .v-stream-track {
         writing-mode: vertical-lr;
-        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", "Helvetica Neue", "Arial Black", sans-serif;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Arial Black", sans-serif;
         font-size: clamp(4.8rem, 7.2vw, 8.5rem);
         font-weight: 900;
         letter-spacing: -0.02em;
