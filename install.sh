@@ -1,5 +1,5 @@
 #!/bin/bash
-# byper installer — sets up the byper CLI + menu bar app on Apple Silicon Macs.
+# byper installer: sets up the byper CLI + menu bar app on Apple Silicon Macs.
 # Usage: curl -fsSL https://byper.org/install | bash
 #
 # What it does:
@@ -9,7 +9,7 @@
 #   4. Prints the one-time SIP prerequisite (csrutil enable --without debug).
 #
 # The actual privileged install happens through the standard macOS installer
-# UI (admin password prompt, Touch ID when offered) — piping to bash only
+# UI (admin password prompt, Touch ID when offered); piping to bash only
 # stages the package and opens it, so nothing installs without your consent.
 
 set -euo pipefail
@@ -23,7 +23,7 @@ if [[ "$(uname)" != "Darwin" ]]; then
     exit 1
 fi
 if [[ "$(uname -m)" != "arm64" ]]; then
-    echo "byper: Apple Silicon (arm64) only — no Intel build exists." >&2
+    echo "byper: Apple Silicon (arm64) only, no Intel build exists." >&2
     exit 1
 fi
 MAC_MAJOR=$(sw_vers -productVersion | cut -d. -f1)

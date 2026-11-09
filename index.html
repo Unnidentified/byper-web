@@ -99,6 +99,16 @@
         --chassis-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cg)' opacity='0.075'/%3E%3C/svg%3E");
         --text-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='tg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 2.5 -0.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23tg)' opacity='0.55'/%3E%3C/svg%3E");
         --radius: 0px;
+
+        /* Layout geometry shared by the grid, the sunken aperture and the index type.
+           The sidebar column stops growing at 380px, so anything that should keep a
+           constant proportion to it has to be derived from --sidebar-w, not from vw. */
+        --sidebar-w: clamp(260px, 25vw, 380px);
+        --rim: 36px;
+        --rim-shadow: 8px;
+        /* Content gutter: always clears the rim plus its inset shadow, so the body
+           never collapses into the frame when the window gets narrow. */
+        --gutter: calc(var(--rim) + var(--rim-shadow) + 1rem);
       }
 
       /* Dark Gruvbox Theme */
@@ -229,8 +239,8 @@
 
       @media (min-width: 1060px) {
         .theme-text-btn {
-          top: calc(36px + 18px);
-          left: calc(clamp(260px, 25vw, 380px) + 2px + 36px + 20px);
+          top: calc(var(--rim) + 18px);
+          left: calc(var(--sidebar-w) + 2px + var(--rim) + 20px);
           right: auto;
         }
       }
@@ -297,7 +307,7 @@
          ========================================================================== */
       .app-layout {
         display: grid;
-        grid-template-columns: clamp(260px, 25vw, 380px) 2px 1fr;
+        grid-template-columns: var(--sidebar-w) 2px 1fr;
         min-height: 100vh;
         position: relative;
         z-index: auto;
@@ -348,7 +358,10 @@
       .v-stream-track {
         writing-mode: vertical-lr;
         font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Arial Black", sans-serif;
-        font-size: clamp(4.8rem, 7.2vw, 8.5rem);
+        /* 0.288 = the old 7.2vw / 25vw ratio, but measured against the column instead
+           of the viewport. The column caps at 380px, so the letters now stop growing
+           with it instead of turning into heavy slabs on wide screens. */
+        font-size: clamp(4.8rem, calc(var(--sidebar-w) * 0.288), 8.5rem);
         font-weight: 900;
         letter-spacing: -0.02em;
         line-height: 1;
@@ -386,7 +399,7 @@
         position: fixed;
         top: 0;
         bottom: 0;
-        left: calc(clamp(260px, 25vw, 380px) + 2px);
+        left: calc(var(--sidebar-w) + 2px);
         right: 0;
         pointer-events: none;
         z-index: 50;
@@ -404,7 +417,7 @@
         top: 0;
         left: 0;
         right: 0;
-        height: 36px;
+        height: var(--rim);
         background: var(--well-rim);
         background-image: var(--chassis-grain);
         background-repeat: repeat;
@@ -423,10 +436,10 @@
 
       .neo-rim-left {
         position: absolute;
-        top: 36px;
+        top: var(--rim);
         bottom: 0;
         left: 0;
-        width: 36px;
+        width: var(--rim);
         background: var(--well-rim);
         background-image: var(--chassis-grain);
         background-repeat: repeat;
@@ -435,10 +448,10 @@
 
       .neo-rim-right {
         position: absolute;
-        top: 36px;
+        top: var(--rim);
         bottom: 0;
         right: 0;
-        width: 36px;
+        width: var(--rim);
         background: var(--well-rim);
         background-image: var(--chassis-grain);
         background-repeat: repeat;
@@ -448,20 +461,20 @@
       /* Sharp Opaque Neobrutalist Shadow (0 blur, 100% opaque black, Image #1 style - top & left only) */
       .neo-inner-shadow {
         position: absolute;
-        top: 36px;
+        top: var(--rim);
         bottom: 0;
-        left: 36px;
-        right: 36px;
-        box-shadow: inset 8px 8px 0px 0px #000000;
+        left: var(--rim);
+        right: var(--rim);
+        box-shadow: inset var(--rim-shadow) var(--rim-shadow) 0px 0px #000000;
       }
 
       /* LCD Screen Pixel Grid Overlay (Normal flat screen digital pixel matrix, not CRT) */
       .neo-pixel-grid {
         position: absolute;
-        top: 36px;
+        top: var(--rim);
         bottom: 0;
-        left: 36px;
-        right: 36px;
+        left: var(--rim);
+        right: var(--rim);
         pointer-events: none;
         z-index: 52;
         background-image:
@@ -479,7 +492,7 @@
       .neo-page-endcap {
         position: relative;
         width: 100%;
-        height: 36px;
+        height: var(--rim);
         margin-top: 4rem;
         background: var(--well-rim);
         background-image: var(--chassis-grain);
@@ -531,8 +544,8 @@
       main > footer {
         max-width: min(860px, 100%);
         margin: 0 auto;
-        padding-left: clamp(1.5rem, 3.5vw, 3.5rem);
-        padding-right: clamp(1.5rem, 3.5vw, 3.5rem);
+        padding-left: var(--gutter);
+        padding-right: var(--gutter);
         box-sizing: border-box;
       }
 
@@ -910,12 +923,12 @@
         /* Bar = strip exactly over main's content area (860px max minus main side padding),
            positioned from the separator; flex centers the command box within it. */
         .install-bar {
-          top: calc(36px + 0.85rem);
+          top: calc(var(--rim) + 0.85rem);
           z-index: 90;
-          left: calc(clamp(260px, 25vw, 380px) + 2px);
+          left: calc(var(--sidebar-w) + 2px);
           right: auto;
-          --pad: clamp(1.5rem, 3.5vw, 3.5rem);
-          --zone: calc(100vw - clamp(260px, 25vw, 380px) - 2px);
+          --pad: var(--gutter);
+          --zone: calc(100vw - var(--sidebar-w) - 2px);
           --col: min(var(--zone), 860px);
           margin-left: calc((var(--zone) - var(--col)) / 2 + var(--pad));
           width: calc(var(--col) - 2 * var(--pad));
@@ -1465,7 +1478,7 @@
           <div class="step-item"><span class="step-num">3.</span><span>PowerUIAgent sets the PMIC's Mode of Operation to 7 and writes NotChargingReason <code>0x01000000</code>.</span></div>
           <div class="step-item"><span class="step-num">4.</span><span>Battery current drops to 0 mA. The charger now feeds the laptop directly, bypassing the battery entirely.</span></div>
           <div class="step-item"><span class="step-num">5.</span><span>The counter stops and shows the elapsed time. The battery icon in the menu bar changes to a plug icon.</span></div>
-          <div class="step-item"><span class="step-num">6.</span><span>Your battery sits idle at whatever percentage it was when you toggled bypass — no cycling, no wear.</span></div>
+          <div class="step-item"><span class="step-num">6.</span><span>Your battery sits idle at whatever percentage it was when you toggled bypass: no cycling, no wear.</span></div>
           <div class="step-item"><span class="step-num">7.</span><span>To resume charging, toggle Bypass Charge off or run <code>byper off</code>. Mode of Operation returns to 1 and current flows back into the battery.</span></div>
         </div>
       </article>
@@ -2234,7 +2247,7 @@
         //
         // Cap = the steepest segment's average speed (gap/span). Segments whose smoothstep peak
         // (1.5x avg) stays under the cap pass through untouched; a segment whose average exceeds
-        // the cap gets its bump shaved to a constant slope equal to its own average — so no node
+        // the cap gets its bump shaved to a constant slope equal to its own average, so no node
         // is ever unreachable and section<->word alignment survives exactly.
         const LUT_STEP = 4;    // scroll px per LUT sample
         let lut = null;
@@ -2255,7 +2268,7 @@
           // Per-segment speed rule. Segment i maps section i's scroll span onto the word gap i.
           // - If its smoothstep peak (1.5x average slope) fits under the global cap (the steepest
           //   segment's average), keep smoothstep: velocity eases in/out at the boundaries.
-          // - Otherwise the segment is "tight" (its average exceeds every other segment's peak — it
+          // - Otherwise the segment is "tight" (its average exceeds every other segment's peak, it
           //   MUST cover more ground per scroll px than any neighbor): fall back to a constant slope
           //   equal to its own average. Constant = no acceleration spike, and node values survive
           //   exactly (a lower slope would make the node unreachable and break alignment).
