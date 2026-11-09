@@ -83,7 +83,7 @@
         --wash: #f5ecdb;
         --sidebar-bg: #eee0c8;    /* Warm sand paper tone for index sidebar */
         --well-rim: #eee0c8;      /* Chassis rim matching sidebar */
-        --vword-inactive: #b09b78;        /* Warm taupe for inactive upcoming indexes on #eee0c8 */
+        --vword-inactive: #ac9772;        /* Warm taupe for inactive upcoming indexes on #eee0c8 */
         
         --ink: #2e2418;           /* Deep warm brown ink */
         --ink-bright: #241a0f;    /* Near black warm brown */
@@ -96,6 +96,10 @@
         --gruv-aqua: #0f6152;     /* Deep warm teal */
         --gruv-blue: #4a7f74;
         --gruv-purple: #8f3f5c;   /* Warm plum */
+
+        /* Night Shift tint. Multiply drops the blue channel, so this reads as a
+           colour temperature shift rather than a layer of orange paint. */
+        --night-shift: #ffe2c2;
         --chassis-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cg)' opacity='0.075'/%3E%3C/svg%3E");
         --text-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='tg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 2.5 -0.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23tg)' opacity='0.55'/%3E%3C/svg%3E");
         --radius: 0px;
@@ -125,7 +129,7 @@
         --wash: #342c25;
         --sidebar-bg: #2c2520;    /* Warm brown charcoal tone for index sidebar */
         --well-rim: #261f1a;      /* Chassis rim matching sidebar */
-        --vword-inactive: #53473c;        /* Warm brown tone for inactive upcoming indexes on #261f1a */
+        --vword-inactive: #594c40;        /* Warm brown tone for inactive upcoming indexes on #261f1a */
 
         --ink: #f0dcb0;
         --ink-bright: #fdf0c0;
@@ -139,6 +143,10 @@
         --gruv-blue: #8cb3a0;
         --gruv-purple: #d3869b;
         --gruv-red: #fb4934;
+
+        /* Slightly stronger here: multiply barely moves a dark surface, so the tint
+           has to cut more blue to register at all. */
+        --night-shift: #ffd2a0;
         --chassis-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cg)' opacity='0.105'/%3E%3C/svg%3E");
         --text-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='tg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 2.5 -0.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23tg)' opacity='0.75'/%3E%3C/svg%3E");
       }
@@ -157,7 +165,7 @@
       }
       [data-theme="dark"] .tui-divider { color: #52443a; }
       [data-theme="dark"] .tui-bright { color: #fdf0c0; }
-      [data-theme="dark"] .tui-dim { color: #9a8a72; }
+      [data-theme="dark"] .tui-dim { color: #a9957e; }
       [data-theme="dark"] .tui-yellow { color: #fabd2f; }
       [data-theme="dark"] .tui-green { color: #b8bb26; }
       [data-theme="dark"] .tui-aqua { color: #9cc07a; }
@@ -499,6 +507,20 @@
         }
       }
 
+      /* Night Shift: a warm cast over the whole page, the way a display looks with
+         the blue light filter turned on. Multiply is the honest way to do it, since
+         the filter is a blue channel reduction and not a wash of orange paint. The
+         tint sits above every other layer, toast included, because the filter would
+         cover those too. */
+      .night-shift {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 2000;
+        background: var(--night-shift);
+        mix-blend-mode: multiply;
+      }
+
       /* Neobrutalist Page Endcap (Closes the sunken frame at the very bottom of the webpage, full width) */
       .neo-page-endcap {
         position: relative;
@@ -790,7 +812,7 @@
 
       /* Light TUI Color Utilities */
       .tui-bright { color: #241a0f; font-weight: 700; }
-      .tui-dim { color: #856f51; }
+      .tui-dim { color: #7a6448; }
       .tui-yellow { color: #96620e; font-weight: 700; }
       .tui-green { color: #4a7a3e; font-weight: 700; }
       .tui-aqua { color: #0f6152; font-weight: 700; }
@@ -1418,6 +1440,9 @@
     <div class="neo-pixel-grid"></div>
 
     <button class="theme-text-btn" id="theme-toggle" onclick="window.toggleTheme()" title="Current theme: light (click for dark)" style="display:none">-[light]</button>
+
+    <!-- Night Shift warm cast, above every other layer -->
+    <div class="night-shift" aria-hidden="true"></div>
 
     <!-- Main Two-Zone Fluid Layout -->
     <div class="app-layout">
