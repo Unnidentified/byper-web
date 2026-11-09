@@ -977,7 +977,11 @@
 
         .cli-screen {
           padding: 12px 10px 14px 10px;
-          font-size: clamp(9.5px, 2.7vw, 12.5px);
+          /* The TUI is a fixed 58-column monospace grid (0.6em per glyph, so 34.8em
+             of text). Size the type from the space actually left inside the screen
+             instead of from the viewport, so the widest row fits rather than clipping.
+             54px = main padding 2x16 + window border 2x1 + screen padding 2x10. */
+          font-size: min(12.5px, calc((100vw - 54px) / 34.8));
           overflow-x: auto;
           -webkit-overflow-scrolling: touch;
         }
@@ -1000,7 +1004,10 @@
         }
 
         .install-command code {
-          font-size: clamp(0.72rem, 2.6vw, 0.85rem);
+          /* 43 monospace chars at 0.6em = 25.8em of text. 115px is the chrome around
+             it (main padding, window border, pre padding, copy button), so the command
+             stays on one line instead of clipping mid-word. */
+          font-size: min(0.85rem, calc((100vw - 115px) / 25.8));
         }
 
         .copy-button {
@@ -1059,7 +1066,8 @@
       @media (max-width: 420px) {
         .cli-screen {
           padding: 10px 8px 12px 8px;
-          font-size: clamp(9px, 2.55vw, 11px);
+          /* Same rule as above with the tighter 8px screen padding: 50px of chrome. */
+          font-size: min(11px, calc((100vw - 50px) / 34.8));
         }
         .cli-titlebar {
           height: 30px;
