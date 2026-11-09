@@ -121,58 +121,58 @@
       /* Dark Gruvbox Theme */
       [data-theme="dark"] {
         --bg: #1f1a16;
-        --bg-hard: #2a231d;
-        --surface: #3d332a;
-        --surface-hover: #52443a;
-        --rule: #52443a;
-        --rule-light: #3d332a;
-        --wash: #342c25;
-        --sidebar-bg: #2c2520;    /* Warm brown charcoal tone for index sidebar */
-        --well-rim: #261f1a;      /* Chassis rim matching sidebar */
-        --vword-inactive: #594c40;        /* Warm brown tone for inactive upcoming indexes on #261f1a */
+        --bg-hard: #2f2721;
+        --surface: #463a30;
+        --surface-hover: #5e4e42;
+        --rule: #5e4e42;
+        --rule-light: #463a30;
+        --wash: #3a3129;
+        --sidebar-bg: #312923;    /* Warm brown charcoal tone for index sidebar */
+        --well-rim: #2b231d;      /* Chassis rim matching sidebar */
+        --vword-inactive: #635547;        /* Warm brown tone for inactive upcoming indexes on #2b231d */
 
-        --ink: #f0dcb0;
-        --ink-bright: #fdf0c0;
-        --muted: #b09a7e;
-        --faint: #9a8a72;
+        --ink: #f8e8c4;
+        --ink-bright: #fff8d8;
+        --muted: #bfa98c;
+        --faint: #a89680;
 
-        --gruv-orange: #fe8019;
-        --gruv-yellow: #fabd2f;
-        --gruv-green: #b8bb26;
-        --gruv-aqua: #9cc07a;
-        --gruv-blue: #8cb3a0;
-        --gruv-purple: #d3869b;
-        --gruv-red: #fb4934;
+        --gruv-orange: #ff8f2e;
+        --gruv-yellow: #ffc94a;
+        --gruv-green: #c6c93a;
+        --gruv-aqua: #a9cc88;
+        --gruv-blue: #99bfac;
+        --gruv-purple: #df92a7;
+        --gruv-red: #ff5a45;
 
         /* Slightly stronger here: multiply barely moves a dark surface, so the tint
            has to cut more blue to register at all. */
-        --night-shift: #ffd2a0;
+        --night-shift: #ffdcb6;
         --chassis-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cg)' opacity='0.105'/%3E%3C/svg%3E");
         --text-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='tg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 2.5 -0.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23tg)' opacity='0.75'/%3E%3C/svg%3E");
       }
       [data-theme="dark"] .cli-window {
-        background: #2a231d;
-        border-color: #52443a;
+        background: #2f2721;
+        border-color: #5e4e42;
         box-shadow: 0 16px 40px rgba(20, 12, 4, 0.4), 0 2px 6px rgba(20, 12, 4, 0.3);
       }
       [data-theme="dark"] .cli-titlebar {
-        background: #3d332a;
-        border-bottom-color: #52443a;
+        background: #463a30;
+        border-bottom-color: #5e4e42;
       }
       [data-theme="dark"] .cli-screen {
-        color: #f0dcb0;
+        color: #f8e8c4;
         background: #1f1a16;
       }
-      [data-theme="dark"] .tui-divider { color: #52443a; }
-      [data-theme="dark"] .tui-bright { color: #fdf0c0; }
-      [data-theme="dark"] .tui-dim { color: #a9957e; }
-      [data-theme="dark"] .tui-yellow { color: #fabd2f; }
-      [data-theme="dark"] .tui-green { color: #b8bb26; }
-      [data-theme="dark"] .tui-aqua { color: #9cc07a; }
-      [data-theme="dark"] .tui-orange { color: #fe8019; }
-      [data-theme="dark"] .tui-key-btn:hover { background: rgba(254, 128, 25, 0.15); }
-      [data-theme="dark"] .tui-key-btn:hover .tui-bright { color: #fe8019; }
-      [data-theme="dark"] .tui-key-btn:hover .tui-dim { color: #fdf0c0; }
+      [data-theme="dark"] .tui-divider { color: #5e4e42; }
+      [data-theme="dark"] .tui-bright { color: #fff8d8; }
+      [data-theme="dark"] .tui-dim { color: #b8a48c; }
+      [data-theme="dark"] .tui-yellow { color: #ffc94a; }
+      [data-theme="dark"] .tui-green { color: #c6c93a; }
+      [data-theme="dark"] .tui-aqua { color: #a9cc88; }
+      [data-theme="dark"] .tui-orange { color: #ff8f2e; }
+      [data-theme="dark"] .tui-key-btn:hover { background: rgba(255, 143, 46, 0.15); }
+      [data-theme="dark"] .tui-key-btn:hover .tui-bright { color: #ff8f2e; }
+      [data-theme="dark"] .tui-key-btn:hover .tui-dim { color: #fff8d8; }
 
       /* Dark install command / copy button */
       [data-theme="dark"] .install-command {
@@ -180,7 +180,7 @@
         box-shadow: 0 4px 16px rgba(20, 12, 4, 0.5);
       }
       [data-theme="dark"] .install-bar .install-command {
-        background: rgba(31, 26, 22, 0.98);
+        background: rgba(34, 28, 23, 0.98);
         box-shadow: 0 4px 18px rgba(20, 12, 4, 0.4);
       }
       [data-theme="dark"] .copy-button {
@@ -192,17 +192,17 @@
 
       /* Dark graph bars */
       [data-theme="dark"] .graph-track {
-        background: #3d332a;
-        border-color: #52443a;
+        background: #463a30;
+        border-color: #5e4e42;
       }
       [data-theme="dark"] .graph-bar {
-        background: #b09a7e;
+        background: #bfa98c;
       }
       [data-theme="dark"] .graph-bar.highlight {
-        background: #fe8019;
+        background: #ff8f2e;
       }
       [data-theme="dark"] .graph-dot {
-        background: #fe8019;
+        background: #ff8f2e;
       }
 
       /* Dark table overrides */
@@ -210,7 +210,7 @@
         box-shadow: 0 4px 16px rgba(20, 12, 4, 0.4);
       }
       [data-theme="dark"] tr.highlight {
-        background: rgba(254, 128, 25, 0.1);
+        background: rgba(255, 143, 46, 0.12);
       }
       [data-theme="dark"] tr.highlight td:first-child {
         color: var(--gruv-orange);
@@ -218,7 +218,7 @@
 
       /* Dark toast */
       [data-theme="dark"] #toast {
-        background: #fdf0c0;
+        background: #fff8d8;
         color: #1f1a16;
         box-shadow: 0 4px 16px rgba(20, 12, 4, 0.6);
       }
@@ -269,12 +269,12 @@
         background: none;
         border: none;
         box-shadow: none;
-        color: rgba(240, 220, 176, 0.30);
+        color: rgba(248, 232, 196, 0.30);
       }
 
       [data-theme="dark"] .theme-text-btn:hover {
         background: none;
-        color: #fabd2f;
+        color: #ffc94a;
       }
 
       /* Permanently lit index number for limits & quirks (unobtrusive subtle indicator) */
@@ -283,7 +283,7 @@
       }
 
       [data-theme="dark"] .hero-index .index-num-lit {
-        color: #fe8019;
+        color: #ff8f2e;
       }
 
       /* Numbered Steps List for How It Works (Clean, borderless) */
@@ -401,7 +401,7 @@
 
       [data-theme="dark"] .v-word:hover,
       [data-theme="dark"] .v-word.active {
-        color: #ecd4a0;
+        color: #fdf0cc;
       }
 
       /* Neobrutalist Sunken Content Window Aperture (Sharp opaque shadows, content inside inner square) */
@@ -642,7 +642,7 @@
         color: var(--gruv-orange);
       }
       [data-theme="dark"] .side-index-link .index-num-lit {
-        color: #fe8019;
+        color: #ff8f2e;
       }
       * {
         box-sizing: border-box;
@@ -766,16 +766,16 @@
         border: 1px solid var(--muted);
       }
       [data-theme="dark"] .dot-close {
-        background: #f0dcb0;
-        border-color: #f0dcb0;
+        background: #f8e8c4;
+        border-color: #f8e8c4;
       }
       [data-theme="dark"] .dot-min {
-        background: #b09a7e;
-        border-color: #b09a7e;
+        background: #bfa98c;
+        border-color: #bfa98c;
       }
       [data-theme="dark"] .dot-max {
-        background: #52443a;
-        border-color: #52443a;
+        background: #5e4e42;
+        border-color: #5e4e42;
       }
 
       .cli-screen {
@@ -912,7 +912,7 @@
       }
 
       [data-theme="dark"] .copy-button.copied {
-        color: #b8bb26;
+        color: #c6c93a;
       }
 
       /* Sticky Install Bar */
@@ -1233,8 +1233,8 @@
       }
 
       [data-theme="dark"] td code.copy-cmd.copied {
-        color: #b8bb26;
-        border-color: #b8bb26;
+        color: #c6c93a;
+        border-color: #c6c93a;
       }
 
       pre {
@@ -1879,7 +1879,7 @@
               ctx.arc(x0 + dx, y0 + dy, radius, 0, Math.PI * 2);
               const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
               ctx.fillStyle = isDark
-                ? `rgba(176, 154, 126, ${alpha})`
+                ? `rgba(191, 169, 140, ${alpha})`
                 : `rgba(109, 90, 65, ${alpha})`;
               ctx.fill();
             }
