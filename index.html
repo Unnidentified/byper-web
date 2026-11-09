@@ -107,8 +107,11 @@
         --rim: 36px;
         --rim-shadow: 8px;
         /* Content gutter: always clears the rim plus its inset shadow, so the body
-           never collapses into the frame when the window gets narrow. */
-        --gutter: calc(var(--rim) + var(--rim-shadow) + 1rem);
+           never collapses into the frame when the window gets narrow. The left side
+           carries the shadow's width on top of that, so the black band does not make
+           the text look tighter on that side. */
+        --gutter-right: calc(var(--rim) + var(--rim-shadow) + 1rem);
+        --gutter-left: calc(var(--gutter-right) + var(--rim-shadow));
       }
 
       /* Dark Gruvbox Theme */
@@ -358,10 +361,9 @@
       .v-stream-track {
         writing-mode: vertical-lr;
         font-family: "Inter", -apple-system, BlinkMacSystemFont, "SF Pro Display", "Helvetica Neue", "Arial Black", sans-serif;
-        /* 0.288 = the old 7.2vw / 25vw ratio, but measured against the column instead
-           of the viewport. The column caps at 380px, so the letters now stop growing
-           with it instead of turning into heavy slabs on wide screens. */
-        font-size: clamp(4.8rem, calc(var(--sidebar-w) * 0.288), 8.5rem);
+        /* Fixed size: the index must not grow when the window is enlarged. 5.5rem keeps
+           the glyphs inside the narrowest column (260px) with room to spare. */
+        font-size: 5.5rem;
         font-weight: 900;
         letter-spacing: -0.02em;
         line-height: 1;
@@ -468,13 +470,15 @@
         box-shadow: inset var(--rim-shadow) var(--rim-shadow) 0px 0px #000000;
       }
 
-      /* LCD Screen Pixel Grid Overlay (Normal flat screen digital pixel matrix, not CRT) */
+      /* LCD Screen Pixel Grid Overlay (Normal flat screen digital pixel matrix, not CRT).
+         Sits outside the aperture so it also covers the single-column mobile layout,
+         where the rim and the inset shadow are not drawn. */
       .neo-pixel-grid {
-        position: absolute;
-        top: var(--rim);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
         bottom: 0;
-        left: var(--rim);
-        right: var(--rim);
         pointer-events: none;
         z-index: 52;
         background-image:
@@ -486,6 +490,13 @@
         background-image:
           linear-gradient(to right, rgba(0, 0, 0, 0.22) 1px, transparent 1px),
           linear-gradient(to bottom, rgba(0, 0, 0, 0.22) 1px, transparent 1px);
+      }
+      @media (min-width: 1060px) {
+        .neo-pixel-grid {
+          top: var(--rim);
+          left: calc(var(--sidebar-w) + 2px + var(--rim));
+          right: var(--rim);
+        }
       }
 
       /* Neobrutalist Page Endcap (Closes the sunken frame at the very bottom of the webpage, full width) */
@@ -544,8 +555,8 @@
       main > footer {
         max-width: min(860px, 100%);
         margin: 0 auto;
-        padding-left: var(--gutter);
-        padding-right: var(--gutter);
+        padding-left: var(--gutter-left);
+        padding-right: var(--gutter-right);
         box-sizing: border-box;
       }
 
@@ -587,15 +598,7 @@
           padding-right: 0;
         }
         main > .hero {
-          padding-top: 0;
-        }
-        .install-bar {
-          left: 0;
-          right: 0;
-          width: 100%;
-          display: flex;
-          justify-content: center;
-          padding: 0 1rem;
+          padding-top: 3rem;
         }
       }
       /* SUBTLE, INTELLIGENT FEATURE CARD ACCENTS (Retro, minimalist, non-rainbow)
@@ -927,14 +930,22 @@
           z-index: 90;
           left: calc(var(--sidebar-w) + 2px);
           right: auto;
-          --pad: var(--gutter);
           --zone: calc(100vw - var(--sidebar-w) - 2px);
           --col: min(var(--zone), 860px);
-          margin-left: calc((var(--zone) - var(--col)) / 2 + var(--pad));
-          width: calc(var(--col) - 2 * var(--pad));
+          margin-left: calc((var(--zone) - var(--col)) / 2 + var(--gutter-left));
+          width: calc(var(--col) - var(--gutter-left) - var(--gutter-right));
           display: flex;
           justify-content: center;
           padding: 0;
+        }
+      }
+
+      /* The floating install bar is a desktop affordance: on phones it would sit on top
+         of the content, and the hero already carries the install command. Declared after
+         the base rule so it wins on source order at equal specificity. */
+      @media (max-width: 1059px) {
+        .install-bar {
+          display: none;
         }
       }
 
@@ -1400,9 +1411,11 @@
       <div class="neo-rim-left"></div>
       <div class="neo-rim-right"></div>
       <div class="neo-inner-shadow"></div>
-      <!-- LCD Screen Pixel Grid (Digital monitor subpixel matrix) -->
-      <div class="neo-pixel-grid"></div>
     </div>
+
+    <!-- LCD Screen Pixel Grid (Digital monitor subpixel matrix), outside the aperture so
+         it stays on in the single-column mobile layout -->
+    <div class="neo-pixel-grid"></div>
 
     <button class="theme-text-btn" id="theme-toggle" onclick="window.toggleTheme()" title="Current theme: light (click for dark)" style="display:none">-[light]</button>
 
