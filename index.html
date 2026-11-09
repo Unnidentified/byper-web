@@ -1478,7 +1478,7 @@
           <div class="step-item"><span class="step-num">3.</span><span>PowerUIAgent sets the PMIC's Mode of Operation to 7 and writes NotChargingReason <code>0x01000000</code>.</span></div>
           <div class="step-item"><span class="step-num">4.</span><span>Battery current drops to 0 mA. The charger now feeds the laptop directly, bypassing the battery entirely.</span></div>
           <div class="step-item"><span class="step-num">5.</span><span>The counter stops and shows the elapsed time. The battery icon in the menu bar changes to a plug icon.</span></div>
-          <div class="step-item"><span class="step-num">6.</span><span>Your battery sits idle at whatever percentage it was when you toggled bypass — no cycling, no wear.</span></div>
+          <div class="step-item"><span class="step-num">6.</span><span>Your battery sits idle at whatever percentage it was when you toggled bypass: no cycling, no wear.</span></div>
           <div class="step-item"><span class="step-num">7.</span><span>To resume charging, toggle Bypass Charge off or run <code>byper off</code>. Mode of Operation returns to 1 and current flows back into the battery.</span></div>
         </div>
       </article>
@@ -2247,7 +2247,7 @@
         //
         // Cap = the steepest segment's average speed (gap/span). Segments whose smoothstep peak
         // (1.5x avg) stays under the cap pass through untouched; a segment whose average exceeds
-        // the cap gets its bump shaved to a constant slope equal to its own average — so no node
+        // the cap gets its bump shaved to a constant slope equal to its own average, so no node
         // is ever unreachable and section<->word alignment survives exactly.
         const LUT_STEP = 4;    // scroll px per LUT sample
         let lut = null;
@@ -2268,7 +2268,7 @@
           // Per-segment speed rule. Segment i maps section i's scroll span onto the word gap i.
           // - If its smoothstep peak (1.5x average slope) fits under the global cap (the steepest
           //   segment's average), keep smoothstep: velocity eases in/out at the boundaries.
-          // - Otherwise the segment is "tight" (its average exceeds every other segment's peak — it
+          // - Otherwise the segment is "tight" (its average exceeds every other segment's peak, it
           //   MUST cover more ground per scroll px than any neighbor): fall back to a constant slope
           //   equal to its own average. Constant = no acceleration spike, and node values survive
           //   exactly (a lower slope would make the node unreachable and break alignment).
