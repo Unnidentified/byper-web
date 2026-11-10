@@ -73,6 +73,9 @@
       }
 
       :root {
+        /* Tells the browser to draw its own chrome (scrollbars, overscroll gutter,
+           form controls) in the page's palette instead of the default white. */
+        color-scheme: light;
         /* Warm Parchment Palette */
         --bg: #faf4e8;            /* Warm cream, sunlit paper tone */
         --bg-hard: #f3e9d6;       /* Warm parchment for cards/tables */
@@ -97,9 +100,6 @@
         --gruv-blue: #4a7f74;
         --gruv-purple: #8f3f5c;   /* Warm plum */
 
-        /* Night Shift tint. Multiply drops the blue channel, so this reads as a
-           colour temperature shift rather than a layer of orange paint. */
-        --night-shift: #ffe2c2;
         --chassis-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cg)' opacity='0.075'/%3E%3C/svg%3E");
         --text-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='tg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 2.5 -0.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23tg)' opacity='0.55'/%3E%3C/svg%3E");
         --radius: 0px;
@@ -118,61 +118,68 @@
         --gutter-left: calc(var(--gutter-right) + var(--rim-shadow));
       }
 
-      /* Dark Gruvbox Theme */
+      /* Dark Gruvbox Theme, carrying the Night Shift cast.
+         The cast used to be a fixed full-viewport layer with mix-blend-mode: multiply.
+         A blend mode only looks right while the compositor keeps the backdrop under the
+         layer, and mobile browsers drop that backdrop while they re-rasterise during a
+         scroll, which showed the raw tint as pale blocks. Folding the tint into the
+         palette removes the dependency: every value below is the plain Gruvbox colour
+         multiplied by #ffdcb6, so the page looks the same and nothing has to blend. */
       [data-theme="dark"] {
-        --bg: #1f1a16;
-        --bg-hard: #2f2721;
-        --surface: #463a30;
-        --surface-hover: #5e4e42;
-        --rule: #5e4e42;
-        --rule-light: #463a30;
-        --wash: #3a3129;
-        --sidebar-bg: #312923;    /* Warm brown charcoal tone for index sidebar */
-        --well-rim: #2b231d;      /* Chassis rim matching sidebar */
-        --vword-inactive: #635547;        /* Warm brown tone for inactive upcoming indexes on #2b231d */
+        color-scheme: dark;
+        --bg: #1f1610;
+        --bg-hard: #2f2218;
+        --surface: #463222;
+        --surface-hover: #5e432f;
+        --rule: #5e432f;
+        --rule-light: #463222;
+        --wash: #3a2a1d;
+        --sidebar-bg: #312319;    /* Warm brown charcoal tone for index sidebar */
+        --well-rim: #2b1e15;      /* Chassis rim matching sidebar */
+        --vword-inactive: #634933;        /* Warm brown tone for inactive upcoming indexes on #2b1e15 */
 
-        --ink: #f8e8c4;
-        --ink-bright: #fff8d8;
-        --muted: #bfa98c;
-        --faint: #a89680;
+        --ink: #f8c88c;
+        --ink-bright: #ffd69a;
+        --muted: #bf9264;
+        --faint: #a8815b;
 
-        --gruv-orange: #ff8f2e;
-        --gruv-yellow: #ffc94a;
-        --gruv-green: #c6c93a;
-        --gruv-aqua: #a9cc88;
-        --gruv-blue: #99bfac;
-        --gruv-purple: #df92a7;
-        --gruv-red: #ff5a45;
+        --gruv-orange: #ff7b21;
+        --gruv-yellow: #ffad35;
+        --gruv-green: #c6ad29;
+        --gruv-aqua: #a9b061;
+        --gruv-blue: #99a57b;
+        --gruv-purple: #df7e77;
+        --gruv-red: #ff4e31;
 
-        /* Slightly stronger here: multiply barely moves a dark surface, so the tint
-           has to cut more blue to register at all. */
-        --night-shift: #ffdcb6;
-        --chassis-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cg)' opacity='0.105'/%3E%3C/svg%3E");
-        --text-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='tg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 2.5 -0.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23tg)' opacity='0.75'/%3E%3C/svg%3E");
+        /* The grain is noise painted over the palette, so it needs the same cast the
+           overlay used to give it. The matrix scales the noise RGB by the tint and
+           leaves alpha alone, which is the multiply the overlay was doing. */
+        --chassis-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 0.863 0 0 0  0 0 0.714 0 0  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cg)' opacity='0.105'/%3E%3C/svg%3E");
+        --text-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='tg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 0.863 0 0 0  0 0 0.714 0 0  0 0 0 2.5 -0.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23tg)' opacity='0.75'/%3E%3C/svg%3E");
       }
       [data-theme="dark"] .cli-window {
-        background: #2f2721;
-        border-color: #5e4e42;
+        background: #2f2218;
+        border-color: #5e432f;
         box-shadow: 0 16px 40px rgba(20, 12, 4, 0.4), 0 2px 6px rgba(20, 12, 4, 0.3);
       }
       [data-theme="dark"] .cli-titlebar {
-        background: #463a30;
-        border-bottom-color: #5e4e42;
+        background: #463222;
+        border-bottom-color: #5e432f;
       }
       [data-theme="dark"] .cli-screen {
-        color: #f8e8c4;
-        background: #1f1a16;
+        color: #f8c88c;
+        background: #1f1610;
       }
-      [data-theme="dark"] .tui-divider { color: #5e4e42; }
-      [data-theme="dark"] .tui-bright { color: #fff8d8; }
-      [data-theme="dark"] .tui-dim { color: #b8a48c; }
-      [data-theme="dark"] .tui-yellow { color: #ffc94a; }
-      [data-theme="dark"] .tui-green { color: #c6c93a; }
-      [data-theme="dark"] .tui-aqua { color: #a9cc88; }
-      [data-theme="dark"] .tui-orange { color: #ff8f2e; }
-      [data-theme="dark"] .tui-key-btn:hover { background: rgba(255, 143, 46, 0.15); }
-      [data-theme="dark"] .tui-key-btn:hover .tui-bright { color: #ff8f2e; }
-      [data-theme="dark"] .tui-key-btn:hover .tui-dim { color: #fff8d8; }
+      [data-theme="dark"] .tui-divider { color: #5e432f; }
+      [data-theme="dark"] .tui-bright { color: #ffd69a; }
+      [data-theme="dark"] .tui-dim { color: #b88e64; }
+      [data-theme="dark"] .tui-yellow { color: #ffad35; }
+      [data-theme="dark"] .tui-green { color: #c6ad29; }
+      [data-theme="dark"] .tui-aqua { color: #a9b061; }
+      [data-theme="dark"] .tui-orange { color: #ff7b21; }
+      [data-theme="dark"] .tui-key-btn:hover { background: rgba(255, 123, 33, 0.15); }
+      [data-theme="dark"] .tui-key-btn:hover .tui-bright { color: #ff7b21; }
+      [data-theme="dark"] .tui-key-btn:hover .tui-dim { color: #ffd69a; }
 
       /* Dark install command / copy button */
       [data-theme="dark"] .install-command {
@@ -180,7 +187,7 @@
         box-shadow: 0 4px 16px rgba(20, 12, 4, 0.5);
       }
       [data-theme="dark"] .install-bar .install-command {
-        background: rgba(34, 28, 23, 0.98);
+        background: rgba(34, 24, 16, 0.98);
         box-shadow: 0 4px 18px rgba(20, 12, 4, 0.4);
       }
       [data-theme="dark"] .copy-button {
@@ -192,17 +199,17 @@
 
       /* Dark graph bars */
       [data-theme="dark"] .graph-track {
-        background: #463a30;
-        border-color: #5e4e42;
+        background: #463222;
+        border-color: #5e432f;
       }
       [data-theme="dark"] .graph-bar {
-        background: #bfa98c;
+        background: #bf9264;
       }
       [data-theme="dark"] .graph-bar.highlight {
-        background: #ff8f2e;
+        background: #ff7b21;
       }
       [data-theme="dark"] .graph-dot {
-        background: #ff8f2e;
+        background: #ff7b21;
       }
 
       /* Dark table overrides */
@@ -210,7 +217,7 @@
         box-shadow: 0 4px 16px rgba(20, 12, 4, 0.4);
       }
       [data-theme="dark"] tr.highlight {
-        background: rgba(255, 143, 46, 0.12);
+        background: rgba(255, 123, 33, 0.12);
       }
       [data-theme="dark"] tr.highlight td:first-child {
         color: var(--gruv-orange);
@@ -218,8 +225,8 @@
 
       /* Dark toast */
       [data-theme="dark"] #toast {
-        background: #fff8d8;
-        color: #1f1a16;
+        background: #ffd69a;
+        color: #1f1610;
         box-shadow: 0 4px 16px rgba(20, 12, 4, 0.6);
       }
 
@@ -269,12 +276,12 @@
         background: none;
         border: none;
         box-shadow: none;
-        color: rgba(248, 232, 196, 0.30);
+        color: rgba(248, 200, 140, 0.30);
       }
 
       [data-theme="dark"] .theme-text-btn:hover {
         background: none;
-        color: #ffc94a;
+        color: #ffad35;
       }
 
       /* Permanently lit index number for limits & quirks (unobtrusive subtle indicator) */
@@ -283,7 +290,7 @@
       }
 
       [data-theme="dark"] .hero-index .index-num-lit {
-        color: #ff8f2e;
+        color: #ff7b21;
       }
 
       /* Numbered Steps List for How It Works (Clean, borderless) */
@@ -401,7 +408,7 @@
 
       [data-theme="dark"] .v-word:hover,
       [data-theme="dark"] .v-word.active {
-        color: #fdf0cc;
+        color: #fdcf92;
       }
 
       /* Neobrutalist Sunken Content Window Aperture (Sharp opaque shadows, content inside inner square) */
@@ -440,7 +447,7 @@
         left: 34px;
         right: 34px;
         height: 2px;
-        background: #1a1208;
+        background: #1a1006;
         pointer-events: none;
       }
 
@@ -453,7 +460,7 @@
         background: var(--well-rim);
         background-image: var(--chassis-grain);
         background-repeat: repeat;
-        border-right: 2px solid #1a1208;
+        border-right: 2px solid #1a1006;
       }
 
       .neo-rim-right {
@@ -465,7 +472,7 @@
         background: var(--well-rim);
         background-image: var(--chassis-grain);
         background-repeat: repeat;
-        border-left: 2px solid #1a1208;
+        border-left: 2px solid #1a1006;
       }
 
       /* Sharp Opaque Neobrutalist Shadow (0 blur, 100% opaque black, Image #1 style - top & left only) */
@@ -475,7 +482,7 @@
         bottom: 0;
         left: var(--rim);
         right: var(--rim);
-        box-shadow: inset var(--rim-shadow) var(--rim-shadow) 0px 0px #1a1208;
+        box-shadow: inset var(--rim-shadow) var(--rim-shadow) 0px 0px #1a1006;
       }
 
       /* LCD Screen Pixel Grid Overlay (Normal flat screen digital pixel matrix, not CRT).
@@ -507,20 +514,6 @@
         }
       }
 
-      /* Night Shift: a warm cast over the whole page, the way a display looks with
-         the blue light filter turned on. Multiply is the honest way to do it, since
-         the filter is a blue channel reduction and not a wash of orange paint. The
-         tint sits above every other layer, toast included, because the filter would
-         cover those too. */
-      .night-shift {
-        position: fixed;
-        inset: 0;
-        pointer-events: none;
-        z-index: 2000;
-        background: var(--night-shift);
-        mix-blend-mode: multiply;
-      }
-
       /* Neobrutalist Page Endcap (Closes the sunken frame at the very bottom of the webpage, full width) */
       .neo-page-endcap {
         position: relative;
@@ -543,7 +536,7 @@
         left: 34px;
         right: 34px;
         height: 2px;
-        background: #1a1208;
+        background: #1a1006;
         pointer-events: none;
       }
 
@@ -557,7 +550,7 @@
         background: var(--sidebar-bg);
         height: 100%;
         position: relative;
-        box-shadow: 5px 0 0 0 #1a1208;
+        box-shadow: 5px 0 0 0 #1a1006;
         z-index: 5;
       }
       /* Right Content Zone: Full grid column, content sections centered inside */
@@ -642,13 +635,17 @@
         color: var(--gruv-orange);
       }
       [data-theme="dark"] .side-index-link .index-num-lit {
-        color: #ff8f2e;
+        color: #ff7b21;
       }
       * {
         box-sizing: border-box;
       }
       html {
         scroll-behavior: smooth;
+        /* Paint the root itself, not just the body. iOS rubber-bands past the
+           document edges and shows the canvas there, so an unpainted root reads as
+           a white band above and below the page. */
+        background-color: var(--bg);
       }
 
       html,
@@ -766,16 +763,16 @@
         border: 1px solid var(--muted);
       }
       [data-theme="dark"] .dot-close {
-        background: #f8e8c4;
-        border-color: #f8e8c4;
+        background: #f8c88c;
+        border-color: #f8c88c;
       }
       [data-theme="dark"] .dot-min {
-        background: #bfa98c;
-        border-color: #bfa98c;
+        background: #bf9264;
+        border-color: #bf9264;
       }
       [data-theme="dark"] .dot-max {
-        background: #5e4e42;
-        border-color: #5e4e42;
+        background: #5e432f;
+        border-color: #5e432f;
       }
 
       .cli-screen {
@@ -912,7 +909,7 @@
       }
 
       [data-theme="dark"] .copy-button.copied {
-        color: #c6c93a;
+        color: #c6ad29;
       }
 
       /* Sticky Install Bar */
@@ -1180,6 +1177,11 @@
       p {
         margin: 0 0 1rem;
         color: var(--ink);
+        /* Prose carries identifiers like IOPSNotificationCreateRunLoopSource, which is
+           wider than a phone screen. Without this the word pushes the paragraph past
+           the viewport, and mobile browsers widen the layout viewport to fit it, which
+           renders the whole page slightly zoomed out. */
+        overflow-wrap: break-word;
       }
 
       code {
@@ -1233,8 +1235,8 @@
       }
 
       [data-theme="dark"] td code.copy-cmd.copied {
-        color: #c6c93a;
-        border-color: #c6c93a;
+        color: #c6ad29;
+        border-color: #c6ad29;
       }
 
       pre {
@@ -1448,9 +1450,6 @@
     <div class="neo-pixel-grid"></div>
 
     <button class="theme-text-btn" id="theme-toggle" onclick="window.toggleTheme()" title="Current theme: light (click for dark)" style="display:none">-[light]</button>
-
-    <!-- Night Shift warm cast, above every other layer -->
-    <div class="night-shift" aria-hidden="true"></div>
 
     <!-- Main Two-Zone Fluid Layout -->
     <div class="app-layout">
@@ -1879,7 +1878,7 @@
               ctx.arc(x0 + dx, y0 + dy, radius, 0, Math.PI * 2);
               const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
               ctx.fillStyle = isDark
-                ? `rgba(191, 169, 140, ${alpha})`
+                ? `rgba(191, 146, 100, ${alpha})`
                 : `rgba(109, 90, 65, ${alpha})`;
               ctx.fill();
             }
