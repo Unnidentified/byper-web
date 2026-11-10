@@ -86,7 +86,7 @@
         --wash: #f5ecdb;
         --sidebar-bg: #eee0c8;    /* Warm sand paper tone for index sidebar */
         --well-rim: #eee0c8;      /* Chassis rim matching sidebar */
-        --vword-inactive: #ac9772;        /* Warm taupe for inactive upcoming indexes on #eee0c8 */
+        --vword-inactive: #b09b78;        /* Warm taupe for inactive upcoming indexes on #eee0c8 */
         
         --ink: #2e2418;           /* Deep warm brown ink */
         --ink-bright: #241a0f;    /* Near black warm brown */
@@ -99,7 +99,6 @@
         --gruv-aqua: #0f6152;     /* Deep warm teal */
         --gruv-blue: #4a7f74;
         --gruv-purple: #8f3f5c;   /* Warm plum */
-
         --chassis-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cg)' opacity='0.075'/%3E%3C/svg%3E");
         --text-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='tg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 2.5 -0.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23tg)' opacity='0.55'/%3E%3C/svg%3E");
         --radius: 0px;
@@ -118,68 +117,58 @@
         --gutter-left: calc(var(--gutter-right) + var(--rim-shadow));
       }
 
-      /* Dark Gruvbox Theme, carrying the Night Shift cast.
-         The cast used to be a fixed full-viewport layer with mix-blend-mode: multiply.
-         A blend mode only looks right while the compositor keeps the backdrop under the
-         layer, and mobile browsers drop that backdrop while they re-rasterise during a
-         scroll, which showed the raw tint as pale blocks. Folding the tint into the
-         palette removes the dependency: every value below is the plain Gruvbox colour
-         multiplied by #ffdcb6, so the page looks the same and nothing has to blend. */
+      /* Dark Gruvbox Theme */
       [data-theme="dark"] {
         color-scheme: dark;
-        --bg: #1f1610;
-        --bg-hard: #2f2218;
-        --surface: #463222;
-        --surface-hover: #5e432f;
-        --rule: #5e432f;
-        --rule-light: #463222;
-        --wash: #3a2a1d;
-        --sidebar-bg: #312319;    /* Warm brown charcoal tone for index sidebar */
-        --well-rim: #2b1e15;      /* Chassis rim matching sidebar */
-        --vword-inactive: #634933;        /* Warm brown tone for inactive upcoming indexes on #2b1e15 */
+        --bg: #1f1a16;
+        --bg-hard: #2a231d;
+        --surface: #3d332a;
+        --surface-hover: #52443a;
+        --rule: #52443a;
+        --rule-light: #3d332a;
+        --wash: #342c25;
+        --sidebar-bg: #2c2520;    /* Warm brown charcoal tone for index sidebar */
+        --well-rim: #261f1a;      /* Chassis rim matching sidebar */
+        --vword-inactive: #53473c;        /* Warm brown tone for inactive upcoming indexes on #261f1a */
 
-        --ink: #f8c88c;
-        --ink-bright: #ffd69a;
-        --muted: #bf9264;
-        --faint: #a8815b;
+        --ink: #f0dcb0;
+        --ink-bright: #fdf0c0;
+        --muted: #b09a7e;
+        --faint: #9a8a72;
 
-        --gruv-orange: #ff7b21;
-        --gruv-yellow: #ffad35;
-        --gruv-green: #c6ad29;
-        --gruv-aqua: #a9b061;
-        --gruv-blue: #99a57b;
-        --gruv-purple: #df7e77;
-        --gruv-red: #ff4e31;
-
-        /* The grain is noise painted over the palette, so it needs the same cast the
-           overlay used to give it. The matrix scales the noise RGB by the tint and
-           leaves alpha alone, which is the multiply the overlay was doing. */
-        --chassis-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 0.863 0 0 0  0 0 0.714 0 0  0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cg)' opacity='0.105'/%3E%3C/svg%3E");
-        --text-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='tg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 0.863 0 0 0  0 0 0.714 0 0  0 0 0 2.5 -0.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23tg)' opacity='0.75'/%3E%3C/svg%3E");
+        --gruv-orange: #fe8019;
+        --gruv-yellow: #fabd2f;
+        --gruv-green: #b8bb26;
+        --gruv-aqua: #9cc07a;
+        --gruv-blue: #8cb3a0;
+        --gruv-purple: #d3869b;
+        --gruv-red: #fb4934;
+        --chassis-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='cg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23cg)' opacity='0.105'/%3E%3C/svg%3E");
+        --text-grain: url("data:image/svg+xml,%3Csvg viewBox='0 0 120 120' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='tg'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='1.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='matrix' values='1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 2.5 -0.6'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23tg)' opacity='0.75'/%3E%3C/svg%3E");
       }
       [data-theme="dark"] .cli-window {
-        background: #2f2218;
-        border-color: #5e432f;
+        background: #2a231d;
+        border-color: #52443a;
         box-shadow: 0 16px 40px rgba(20, 12, 4, 0.4), 0 2px 6px rgba(20, 12, 4, 0.3);
       }
       [data-theme="dark"] .cli-titlebar {
-        background: #463222;
-        border-bottom-color: #5e432f;
+        background: #3d332a;
+        border-bottom-color: #52443a;
       }
       [data-theme="dark"] .cli-screen {
-        color: #f8c88c;
-        background: #1f1610;
+        color: #f0dcb0;
+        background: #1f1a16;
       }
-      [data-theme="dark"] .tui-divider { color: #5e432f; }
-      [data-theme="dark"] .tui-bright { color: #ffd69a; }
-      [data-theme="dark"] .tui-dim { color: #b88e64; }
-      [data-theme="dark"] .tui-yellow { color: #ffad35; }
-      [data-theme="dark"] .tui-green { color: #c6ad29; }
-      [data-theme="dark"] .tui-aqua { color: #a9b061; }
-      [data-theme="dark"] .tui-orange { color: #ff7b21; }
-      [data-theme="dark"] .tui-key-btn:hover { background: rgba(255, 123, 33, 0.15); }
-      [data-theme="dark"] .tui-key-btn:hover .tui-bright { color: #ff7b21; }
-      [data-theme="dark"] .tui-key-btn:hover .tui-dim { color: #ffd69a; }
+      [data-theme="dark"] .tui-divider { color: #52443a; }
+      [data-theme="dark"] .tui-bright { color: #fdf0c0; }
+      [data-theme="dark"] .tui-dim { color: #9a8a72; }
+      [data-theme="dark"] .tui-yellow { color: #fabd2f; }
+      [data-theme="dark"] .tui-green { color: #b8bb26; }
+      [data-theme="dark"] .tui-aqua { color: #9cc07a; }
+      [data-theme="dark"] .tui-orange { color: #fe8019; }
+      [data-theme="dark"] .tui-key-btn:hover { background: rgba(254, 128, 25, 0.15); }
+      [data-theme="dark"] .tui-key-btn:hover .tui-bright { color: #fe8019; }
+      [data-theme="dark"] .tui-key-btn:hover .tui-dim { color: #fdf0c0; }
 
       /* Dark install command / copy button */
       [data-theme="dark"] .install-command {
@@ -187,7 +176,7 @@
         box-shadow: 0 4px 16px rgba(20, 12, 4, 0.5);
       }
       [data-theme="dark"] .install-bar .install-command {
-        background: rgba(34, 24, 16, 0.98);
+        background: rgba(31, 26, 22, 0.98);
         box-shadow: 0 4px 18px rgba(20, 12, 4, 0.4);
       }
       [data-theme="dark"] .copy-button {
@@ -199,17 +188,17 @@
 
       /* Dark graph bars */
       [data-theme="dark"] .graph-track {
-        background: #463222;
-        border-color: #5e432f;
+        background: #3d332a;
+        border-color: #52443a;
       }
       [data-theme="dark"] .graph-bar {
-        background: #bf9264;
+        background: #b09a7e;
       }
       [data-theme="dark"] .graph-bar.highlight {
-        background: #ff7b21;
+        background: #fe8019;
       }
       [data-theme="dark"] .graph-dot {
-        background: #ff7b21;
+        background: #fe8019;
       }
 
       /* Dark table overrides */
@@ -217,7 +206,7 @@
         box-shadow: 0 4px 16px rgba(20, 12, 4, 0.4);
       }
       [data-theme="dark"] tr.highlight {
-        background: rgba(255, 123, 33, 0.12);
+        background: rgba(254, 128, 25, 0.1);
       }
       [data-theme="dark"] tr.highlight td:first-child {
         color: var(--gruv-orange);
@@ -225,8 +214,8 @@
 
       /* Dark toast */
       [data-theme="dark"] #toast {
-        background: #ffd69a;
-        color: #1f1610;
+        background: #fdf0c0;
+        color: #1f1a16;
         box-shadow: 0 4px 16px rgba(20, 12, 4, 0.6);
       }
 
@@ -276,12 +265,12 @@
         background: none;
         border: none;
         box-shadow: none;
-        color: rgba(248, 200, 140, 0.30);
+        color: rgba(240, 220, 176, 0.30);
       }
 
       [data-theme="dark"] .theme-text-btn:hover {
         background: none;
-        color: #ffad35;
+        color: #fabd2f;
       }
 
       /* Permanently lit index number for limits & quirks (unobtrusive subtle indicator) */
@@ -290,7 +279,7 @@
       }
 
       [data-theme="dark"] .hero-index .index-num-lit {
-        color: #ff7b21;
+        color: #fe8019;
       }
 
       /* Numbered Steps List for How It Works (Clean, borderless) */
@@ -408,7 +397,7 @@
 
       [data-theme="dark"] .v-word:hover,
       [data-theme="dark"] .v-word.active {
-        color: #fdcf92;
+        color: #ecd4a0;
       }
 
       /* Neobrutalist Sunken Content Window Aperture (Sharp opaque shadows, content inside inner square) */
@@ -447,7 +436,7 @@
         left: 34px;
         right: 34px;
         height: 2px;
-        background: #1a1006;
+        background: #1a1208;
         pointer-events: none;
       }
 
@@ -460,7 +449,7 @@
         background: var(--well-rim);
         background-image: var(--chassis-grain);
         background-repeat: repeat;
-        border-right: 2px solid #1a1006;
+        border-right: 2px solid #1a1208;
       }
 
       .neo-rim-right {
@@ -472,7 +461,7 @@
         background: var(--well-rim);
         background-image: var(--chassis-grain);
         background-repeat: repeat;
-        border-left: 2px solid #1a1006;
+        border-left: 2px solid #1a1208;
       }
 
       /* Sharp Opaque Neobrutalist Shadow (0 blur, 100% opaque black, Image #1 style - top & left only) */
@@ -482,7 +471,7 @@
         bottom: 0;
         left: var(--rim);
         right: var(--rim);
-        box-shadow: inset var(--rim-shadow) var(--rim-shadow) 0px 0px #1a1006;
+        box-shadow: inset var(--rim-shadow) var(--rim-shadow) 0px 0px #1a1208;
       }
 
       /* LCD Screen Pixel Grid Overlay (Normal flat screen digital pixel matrix, not CRT).
@@ -536,7 +525,7 @@
         left: 34px;
         right: 34px;
         height: 2px;
-        background: #1a1006;
+        background: #1a1208;
         pointer-events: none;
       }
 
@@ -550,7 +539,7 @@
         background: var(--sidebar-bg);
         height: 100%;
         position: relative;
-        box-shadow: 5px 0 0 0 #1a1006;
+        box-shadow: 5px 0 0 0 #1a1208;
         z-index: 5;
       }
       /* Right Content Zone: Full grid column, content sections centered inside */
@@ -635,7 +624,7 @@
         color: var(--gruv-orange);
       }
       [data-theme="dark"] .side-index-link .index-num-lit {
-        color: #ff7b21;
+        color: #fe8019;
       }
       * {
         box-sizing: border-box;
@@ -763,16 +752,16 @@
         border: 1px solid var(--muted);
       }
       [data-theme="dark"] .dot-close {
-        background: #f8c88c;
-        border-color: #f8c88c;
+        background: #f0dcb0;
+        border-color: #f0dcb0;
       }
       [data-theme="dark"] .dot-min {
-        background: #bf9264;
-        border-color: #bf9264;
+        background: #b09a7e;
+        border-color: #b09a7e;
       }
       [data-theme="dark"] .dot-max {
-        background: #5e432f;
-        border-color: #5e432f;
+        background: #52443a;
+        border-color: #52443a;
       }
 
       .cli-screen {
@@ -809,7 +798,7 @@
 
       /* Light TUI Color Utilities */
       .tui-bright { color: #241a0f; font-weight: 700; }
-      .tui-dim { color: #7a6448; }
+      .tui-dim { color: #856f51; }
       .tui-yellow { color: #96620e; font-weight: 700; }
       .tui-green { color: #4a7a3e; font-weight: 700; }
       .tui-aqua { color: #0f6152; font-weight: 700; }
@@ -909,7 +898,7 @@
       }
 
       [data-theme="dark"] .copy-button.copied {
-        color: #c6ad29;
+        color: #b8bb26;
       }
 
       /* Sticky Install Bar */
@@ -1177,11 +1166,6 @@
       p {
         margin: 0 0 1rem;
         color: var(--ink);
-        /* Prose carries identifiers like IOPSNotificationCreateRunLoopSource, which is
-           wider than a phone screen. Without this the word pushes the paragraph past
-           the viewport, and mobile browsers widen the layout viewport to fit it, which
-           renders the whole page slightly zoomed out. */
-        overflow-wrap: break-word;
       }
 
       code {
@@ -1235,8 +1219,8 @@
       }
 
       [data-theme="dark"] td code.copy-cmd.copied {
-        color: #c6ad29;
-        border-color: #c6ad29;
+        color: #b8bb26;
+        border-color: #b8bb26;
       }
 
       pre {
@@ -1878,7 +1862,7 @@
               ctx.arc(x0 + dx, y0 + dy, radius, 0, Math.PI * 2);
               const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
               ctx.fillStyle = isDark
-                ? `rgba(191, 146, 100, ${alpha})`
+                ? `rgba(176, 154, 126, ${alpha})`
                 : `rgba(109, 90, 65, ${alpha})`;
               ctx.fill();
             }
